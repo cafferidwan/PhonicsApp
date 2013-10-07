@@ -1,7 +1,5 @@
 package com.example.phonicsapp;
 
-import java.util.ArrayList;
-
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -17,7 +15,6 @@ import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSourc
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.color.Color;
@@ -48,7 +45,7 @@ public class GameMainPage extends SimpleBaseGameActivity
 	public static ITextureRegion mbackGroundTextureRegion, mbackGround2TextureRegion;
 	
 	public static Sprite backGround, backGround2;
-	public static Sprite parrot, board, kolom;
+	public static Sprite parrot, board, monkey;
 	public static Sprite mo;
 	
 	public static VertexBufferObjectManager vertexBufferObjectManager;
@@ -90,11 +87,11 @@ public class GameMainPage extends SimpleBaseGameActivity
 				.createFromAsset(this.mBitmapTextureAtlas1, this, "bg-2.png");
 		
 		mKolomTextureRegion = BitmapTextureAtlasTextureRegionFactory
-				.createFromAsset(this.mBitmapTextureAtlas, this, "kolom-2.png");
+				.createFromAsset(this.mBitmapTextureAtlas, this, "monkey.png");
 		mBoardTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createFromAsset(this.mBitmapTextureAtlas, this, "board.png");
 		mParrotTextureRegion = BitmapTextureAtlasTextureRegionFactory
-				.createFromAsset(this.mBitmapTextureAtlas, this, "parrot-4.png");
+				.createFromAsset(this.mBitmapTextureAtlas, this, "parrot.png");
 		
 		mMoTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createFromAsset(this.mBitmapTextureAtlas1, this, "mo.png");
@@ -169,12 +166,12 @@ public class GameMainPage extends SimpleBaseGameActivity
 				return true;
 			}
 		};
-		//Debug.d("CAMERA_HEIGHT:"+CAMERA_HEIGHT);
-		//Debug.d("CAMERA_WIDTH:"+CAMERA_WIDTH);
 		mScene.registerTouchArea(parrot);
 		mScene.attachChild(parrot);
+		parrot.setWidth(CAMERA_WIDTH/5);
+		parrot.setHeight(CAMERA_HEIGHT/3);
 		
-		kolom = new Sprite(CAMERA_WIDTH/2-100, CAMERA_HEIGHT/2, mKolomTextureRegion, getVertexBufferObjectManager())
+		monkey = new Sprite(CAMERA_WIDTH/2-100, 0, mKolomTextureRegion, getVertexBufferObjectManager())
 		{
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY)
@@ -196,12 +193,12 @@ public class GameMainPage extends SimpleBaseGameActivity
 				return true;
 			}
 		};
-		//kolom.setHeight(CAMERA_HEIGHT/3);
-		//kolom.setWidth(CAMERA_WIDTH/3);
-		mScene.registerTouchArea(kolom);
-		mScene.attachChild(kolom);
+		mScene.registerTouchArea(monkey);
+		mScene.attachChild(monkey);
+		monkey.setWidth(CAMERA_WIDTH/5);
+		monkey.setHeight((float) (CAMERA_HEIGHT/1.5));
 
-		board = new Sprite(CAMERA_WIDTH/2+130, CAMERA_HEIGHT/2, mBoardTextureRegion, getVertexBufferObjectManager())
+		board = new Sprite(CAMERA_WIDTH-200, CAMERA_HEIGHT/2, mBoardTextureRegion, getVertexBufferObjectManager())
 		{
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY)
@@ -221,10 +218,10 @@ public class GameMainPage extends SimpleBaseGameActivity
 				return true;
 			}
 		};
-		board.setHeight(CAMERA_HEIGHT/3);
-		board.setWidth(CAMERA_WIDTH/3-60);
 		mScene.registerTouchArea(board);
 		mScene.attachChild(board);
+		board.setWidth(CAMERA_WIDTH/4);
+		board.setHeight(CAMERA_HEIGHT/2);
 		
 		vertexBufferObjectManager = getVertexBufferObjectManager();
 		
